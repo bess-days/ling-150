@@ -396,7 +396,7 @@ def vowelLocator(word):
 # locates non-dipthong vowels in the first position in longer words - for words longer then 4 characters lead the first vowel to be elongated or become an extended dipthong
 # equal to `start_server({'index': index, 'task_1': task_1, 'task_2': task_2})`
 def process(title):
-    from webpage import word
+    from main import word
     popup(title, [
         put_text('Note: capitol letters represent dipthongs or elongated sounds due to character balance.', word)
     ]
