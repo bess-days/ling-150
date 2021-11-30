@@ -1,14 +1,14 @@
+import UrbanDictAPI.defs
 from PyDictionary import *
 from dictionaryio import DictionaryIO
 from pywebio import *
 from pywebio.input import *
 from pywebio.output import *
 from flask import Flask
+import urbandictionary
 
-app = Flask(__name__)
-app.debug = True
-if __name__ == '__main__':
-    app.run()
+from UrbanDictAPI.main import Query ,WordofTheDay , CategoryDefinitions , GetUserDefinitions
+
 from definitionsCode import *
 from inventory import *
 
@@ -23,13 +23,13 @@ with use_scope('EnterWord', clear=True):
     word = input.input('Enter a word: ')
     write(word)
 
+
 put_text('Your word is ' + word).style('text-decoration-line: overline underline; text-decoration-style: wavy')
 
 if word in commonWords:
     popup('Common Word Warning:', [
         put_text('You inputted a word in the 100 most common English words Common words  mainly are auxillary words and pronouns which don\t often change meaning in the way conclass can help.'),
         put_link('100 Most Common words', 'https://www.ef.edu/english-resources/english-vocabulary/top-100-words/', new_window=True),
-        put_buttons(['Scroll to Bibliography', 'Close'], onclick=[scroll2Bib(), close()])
         ]
           )
     note = actions('Do you want to input another word?', ['Yes', 'No'],
@@ -100,6 +100,9 @@ with use_scope('replace1', clear=True):
     word = word.replace('th', u'θ', 1)
     word = word.replace('j', u'ʤ', 1)
     word = word.replace('ch', u'ʧ', 1)
+    word = word.replace('ss', 's', 1)
+    word = word.replace('tt', 't', 1)
+    word = word.replace('zz', 'z', 1)
     if word.endswith('g'):
         word = word.replace('g', u'ʔ', 1)  # TODO: ghlotal
     if word.endswith('r'):
@@ -177,6 +180,25 @@ if len(word) <= 4:
                                  ]
                              )
                              )
+                elif not word.endswith(tuple(vowels)):
+                    word = word + syllabic[2]
+                    put_info(put_text('Your word consists of a closed vowel block'),
+                             put_table([
+                                 ['Nucleus', 'CODA'],
+                                 [word[0], word[1]]
+                             ]),
+                             put_row([
+                                 put_text('With a'),
+                                 put_text('V initial').style('color: yellow'),
+                                 put_text('and a'),
+                                 put_text('C').style('color: orange'),
+                                 put_text('in the final'),
+                                 put_text(syllabic[2]).style('color: brown'),
+                                 put_text('is added. As this word only has 2 phonemes it benefits from the rarely used', syllabic[2])
+                             ]
+                             )
+                             )
+
                     # words with C and open vowel
             if len(word) == 3 and word[1] in capitol:
                 if word.endswith(tuple(alveolar)):
