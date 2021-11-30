@@ -1,13 +1,5 @@
-import UrbanDictAPI.defs
 from PyDictionary import *
 from dictionaryio import DictionaryIO
-from pywebio import *
-from pywebio.input import *
-from pywebio.output import *
-from flask import Flask
-import urbandictionary
-
-from UrbanDictAPI.main import Query ,WordofTheDay , CategoryDefinitions , GetUserDefinitions
 
 from definitionsCode import *
 from inventory import *
@@ -44,7 +36,7 @@ if word in commonWords:
     if note == 'No':
         popup('You can explore even more about your word\'s connotation once you input it!')
 if word.endswith('s'):
-    plural = actions('*Is your word plural*', ['Yes', 'No'],
+    plural = actions('Is your word plural', ['Yes', 'No'],
                      help_text='Is the word you input pluralized when it could be singular?')
     if plural == 'Yes':
         popup('Note on plurals',
@@ -93,6 +85,44 @@ set_processbar('process', 9 / 10, 'Verifying rules')
 time.sleep(1)
 set_processbar('process', 10 / 10, 'Verifying rules')
 # TODO: fix labels
+
+def phonemes(word):
+    print(len(word))
+def consonants(word):
+    consCount = 0
+    try:
+        if i in inventory:
+            consCount += 1
+    except(Exception):
+        pass
+    put_text(consCount)
+def vowelA(word):
+    vcounts = 0
+    try:
+        if i in vowels:
+            vcounts += 1
+    except(Exception):
+        pass
+    put_text(vcounts)
+
+def structure(word):
+    skeleton = word
+    try:
+        for i in range(len(skeleton)):
+            if skeleton[i] in inventory:
+                skeleton = skeleton.replace(skeleton[i], 'C')
+            if skeleton[i] in vowels:
+                skeleton = skeleton.replace(skeleton[i], 'V')
+    except(Exception):
+        pass
+    vcount = skeleton.count('V')
+    ccount = skeleton.count('C')
+    put_text('Skeleton:', skeleton)
+    put_text('Number of consonants:', ccount)
+    put_text('Number of vowels:', vcount)
+
+
+
 with use_scope('replace1', clear=True):
     word = word.replace('ck', 'k', 1)
     word = word.replace('ll', 'l', 1)
@@ -139,15 +169,20 @@ with use_scope('replace1', clear=True):
         word = word.replace('ai', 'A', 1)
         word = word.replace('ay', 'A', 1)
     if tuple(vowels) and 'e' in word:
+        print('e pattern present')
         word = word.replace('a', 'A', 1)
         word = word.replace('i', '|', 1)
         word = word.replace('u', 'U', 1)
+        word = word.replace('e','')
     #checks if there are other dipthongs
+
 
 
 
 if len(word) <= 4:
     print(len(word))
+
+
     with use_scope('3letter', clear=True):
             if len(word) <= 4:
                 print('ummm')
@@ -201,6 +236,7 @@ if len(word) <= 4:
 
                     # words with C and open vowel
             if len(word) == 3 and word[1] in capitol:
+
                 if word.endswith(tuple(alveolar)):
                     word = word +  u'ʂ' # TODO: import retroflexes, add into 4+ letter by running against common words - it will add a label
                 if word.endswith(tuple(velar)):
@@ -237,8 +273,13 @@ if len(word) <= 4:
                              ),
                              put_collapse('Learn about closed syllable rhymes', [
                                  put_table([
-                                     ['Final Consonant', 'Conclass Rhyme', 'Similar'],
-                                     ['Alveolar', 'ʂ', '' ]
+                                     ['Final Consonant', 'Conclass Rhyme'],
+                                     ['Alveolar', 'ʂ'],
+                                     ['Labiodental','ɳ'],
+                                     ['Bilabial', u'ʈ'],
+                                     ['Palatal', u'ɽ'],
+                                     ['Glottal', u'ɭ'],
+                                     ['Velar', u'ɖ']
                                  ]),
                                  put_text('Important Note: depending on if your nuclei is a dipthong or not the words will have different endings'),
                                  put_text('Most three letter words tend to allow for minimal pairs hence along with adapting different endings it is thorough to change the endings further'),
@@ -279,7 +320,7 @@ if len(word) > 4 and u'ʔ' not in word and not word.endswith(tuple(retroflex)):
     print(word)
     for i in range(len(word) - 1):
         if word[i] in vowels and word[i + 1] in vowels:
-            print(word[i] + 1)
+            print(word[i + 1])
             word = word[:i + 1] + word[i + 2:]
     print(word)
     with use_scope('FinalReplacements', clear=True):
@@ -322,7 +363,6 @@ word = word.replace('|',u'ai')
 word = word.replace('Y', u'ɔi')
 word = word.replace('U', 'u:')
 word = word.replace('T', u'au')
-put_text(word)
 word = word
 
 put_text('Your word before adding the endings. A sneak peak:', word)
