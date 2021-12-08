@@ -1,6 +1,7 @@
 from PyDictionary import *
 from dictionaryio import DictionaryIO
-
+import eng_to_ipa
+import eng_to_ipa as ipa
 from definitionsCode import *
 from inventory import *
 
@@ -17,7 +18,6 @@ with use_scope('EnterWord', clear=True):
 
 
 put_text('Your word is ' + word).style('text-decoration-line: overline underline; text-decoration-style: wavy')
-
 if word in commonWords:
     popup('Common Word Warning:', [
         put_text('You inputted a word in the 100 most common English words Common words  mainly are auxillary words and pronouns which don\t often change meaning in the way conclass can help.'),
@@ -365,7 +365,7 @@ word = word.replace('U', 'u:')
 word = word.replace('T', u'au')
 word = word
 
-put_text('Your word before adding the endings. A sneak peak:', word)
+put_text('If you see', put_markdown('`dam doesnt work`'), 'in run tab, disregard ʕɳ')
 
 
 
@@ -396,15 +396,12 @@ with use_scope('Customize'):
                          'However, there is little need for plurals when speaking in conclass'
                          'as the words most likely to use the conclass classifier are adjective, verbs, or nouns that are specific to a singular person.'), line, \
                 ('The plural of your word is: '), pluralDetailed, line
+    otherTabs = put_text('As the word you picked is at the simplest form', indent, 'you might want to make it an adverb or a noun - while this often isn\'t', indent, 'necessary due to context clues however there are ways to organize'),
+
     tenseTab = put_text('Tense is not necessairly dealt with in Conclass.'
                         ' As conclass deals with specific words within a sentence, surrounding words often indicate tense.'), put_markdown(
-        '*was*, *felt*, *had*, *were*'), \
-               (
-                   'For words such as run/ran, or see/saw which are irregular and have no local tense indicators, conclass allows the addition of a glottal sound after the first syllable.'
-                   'Other tense exceptions include verbs that maintain in past tense, and those to have the added glottal.'
-                   'If there is a need to dictate tense, as you will see when you explore the language more, you assert a glottal stop'
-                   'Examples: I '
-                   'Feel free to experiment below:'), put_markdown('---'), ('Currently not oporatable')
+        '*was*, *felt*, *had*, *were*')
+
     # TODO add examples
     caseTab = put_markdown('## \' Feeling Case \''), put_text(
         'As formentioned, the words that mostly are used with the conclass classifiers are adjectives, verbs and nouns.'), \
@@ -414,11 +411,9 @@ with use_scope('Customize'):
               put_table([
                   ['English Sentence', 'Conclass meaning', 'Base conclass word', 'The word in the feeling case'],
                   ['I feel like I am dying', 'this means you feel ill enough to go to the emergency room.', 'daɪ',
-                   'Feel case'],  # TODO add proper example
-                  ['I am dying', 'this means you are, clinically dying', '', '']
-              ]), \
-              put_text('To also refer to tense - note: an addition of the glottal').style('10px'), put_markdown('**'), (
-                  'Try it out yourself')
+                   'daɪɔ˞'],  # TODO add proper example
+                  ['I am dying', 'this means you are, clinically dying', 'daɪ', 'daɪ']
+              ])
     meaningTab = put_text('See how your word benefits from conclass.',
                           'Dictionary definition via Word.net:'), \
                  put_markdown('---'), put_text(meaning, indent).style('color: red; border-style: dotted'), put_markdown(
@@ -427,7 +422,7 @@ with use_scope('Customize'):
     tooClose = put_text(
         'Do you think your result sounds too much like another english word or let you get a combination that can sound like a slang contratction like'), put_markdown(
         '**'), put_text(
-        'Adding the retroflex s \'sh\' at the end of the word can dennote any other menining'), put_markdown(
+        'Adding the retroflex s \'ʂ\' at the end of the word can dennote any other menining'), put_markdown(
         '---'), put_text(ambigousFix), put_markdown('---')  # TODO: input murder word
     socialAspect = put_text('The main purpose of this language is to help the ambiguoty of social situations - here is who it can help, and who it can benefit'), \
                    put_table([
@@ -444,7 +439,6 @@ with use_scope('Customize'):
         {'title': 'Explore Connotation', 'content': meaningTab},
         {'title': 'Correct any English similarity', 'content': tooClose},
         {'title': 'How this helps people?', 'content': socialAspect},
-        {'title': 'See the code', 'content': 'boo'},  # TODO add previous code
     ])
 with use_scope('bib'):
     put_collapse('Bibliography', content=[

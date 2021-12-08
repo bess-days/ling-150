@@ -1,0 +1,20 @@
+Reflection:
+
+I started this project after my car accident and only did it in the terminal until the terminal refused to like IPA. However, as time went on, I found how to code python into a webpage. I'm in computer science 101, and it was quite funny when we had a language assignment and my professor was skeptical with my unique code for it - I explained it was part of another project. I learned so much from this - between of course, the material, finally able to create something that if used would make my work so much better, and a whole new side of code. However, most notably, I found the branch of computational linguistics I am interested in: translation. Once you mentioned the project, I was so excited.
+
+
+Hamann, Silke. “Retroflex Fricatives in Slavic Languages.” Journal of the International Phonetic Association, vol. 34, no. 1, Cambridge University Press, 2004, pp. 53–67, http://www.jstor.org/stable/44526947.
+
+Adam Oberlin. “Nordic Studies: Languages and Linguistics.” The Year’s Work in Modern Language Studies, vol. 75, [Modern Humanities Research Association, Brill], 2015, pp. 524–34, https://doi.org/10.5699/yearworkmodlang.75.2013.0524.
+
+STANDWELL, G. J. “NORWEGIAN PHONOLOGY.” Acta Linguistica Academiae Scientiarum Hungaricae, vol. 25, no. 3/4, Akadémiai Kiadó, 1975, pp. 339–77, http://www.jstor.org/stable/44309864.
+
+“Handbook of the International Phonetic Association: A Quide to the Use of the International Phonetic Alphabet.” Journal of the International Phonetic Association, vol. 25, no. 1, Cambridge University Press, 1995, pp. 3–47, http://www.jstor.org/stable/44526849.
+
+Weimen, Wang. "PyWebIO" (2021) https://pywebio.readthedocs.io/_/downloads/en/v1.2.3/pdf/
+
+ John Ellery Clark; Colin Yallop; Janet Fletcher (2007). An introduction to phonetics and phonology (third ed.). Malden, MA: Blackwell. p. 66. ISBN 1-4051-3083-0.
+
+
+ Ladefoged, Peter; Ian Maddieson (1996). The sounds of the world's languages. Wiley-Blackwell. p. 313. ISBN 0631198156. http://books.google.com/?id=h1byJz_rWUcC.
+
